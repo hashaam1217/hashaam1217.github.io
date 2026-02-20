@@ -45,7 +45,6 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Home</a></li>
-          <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resume</a></li>
           <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
         </ul>
       </nav>
@@ -113,133 +112,6 @@
 
     </section><!-- /Hero Section -->
 
-<!-- Resume Section -->
-    <section id="resume" class="resume section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Resume</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-          <!-- Left column with summary and contact -->
-          <div class="col-lg-4">
-            <div class="resume-side" data-aos="fade-right" data-aos-delay="100">
-
-              <div class="skills-animation mt-4">
-                <h3>Technical Skills</h3>
-                <div class="skill-item">
-                  <div class="d-flex justify-content-between">
-                    <span>- Programming: C/C++, SystemVerilog, Bash, Assembly, Python, Perl, TCL</span>
-                  </div>
-                </div>
-
-                <div class="skill-item">
-                  <div class="d-flex justify-content-between">
-                    <span>- Software: Quartus, ModelSim, NeoVim, Linux, Docker, Github CI/CD, Git, Zephyr, RTOS, NRF5SDK</span>
-                  </div>
-                </div>
-
-                <div class="skill-item">
-                  <div class="d-flex justify-content-between">
-                    <span>- Hardware: KiCAD, LTSpice, 3D Printing, Fusion360, AutoCAD, I2C, SPI, UART</span>
-                  </div>
-                </div>
-
-                <div class="skill-item">
-                  <div class="d-flex justify-content-between">
-                    <span>- Lab Equipment: Hardware Debugging (ST-Link / OpenOCD), Oscilloscope, Function Generator</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <!-- Right column with experience and education -->
-          <div class="col-lg-8 ps-4 ps-lg-5">
-            <!-- Experience Section -->
-            <div class="resume-section" data-aos="fade-up">
-              <h3><i class="bi bi-briefcase me-2"></i>Professional Experience</h3>
-
-              <div class="resume-item">
-                <h4>Firmware Engineering Coop</h4>
-                <h5>2025 January - 2025 August</h5>
-                <p class="company"><i class="bi bi-building"></i> Salyx Medical</p>
-                <ul>
-                  <li>Worked on custom drivers for an accelerometer, temperature sensor, and PPG/ECG sensor on an nRF52832</li>
-                  <li>Ported over 8 custom drivers from nRF 5 SDK to Nordic Connect SDK (Zephyr), and implemented Over The Air Device Firmware Updates</li>
-                  <li>Integrated Nordic PPI and RTC modules to shift sensor sampling off the CPU, cutting BLE-advertising current by 2 mA and extending device battery life by 25%</li>
-                  <li>Used KiCad schematics and a DMM to pinpoint signal faults, then precision-desoldered and replaced SMD PCB components to restore circuit integrity</li>
-                  <li>Identified and repaired firmware memory leaks, diagnosed PCB and schematic issues, and developed comprehensive documentation, improving system stability, maintainability, and team knowledge sharing</li>
-                </ul>
-              </div>
-
-              <div class="resume-item">
-                <h4>Electrical Engineering Intern</h4>
-                <h5>2024 May - 2024 August</h5>
-                <p class="company"><i class="bi bi-building"></i> Alvia Systems</p>
-                <ul>
-                  <li>Engineered a comprehensive schematic diagram for a custom STM32-based flight controller utilizing KiCAD's eSchema, addressing specific design criteria</li>
-                  <li>Designed and programmed firmware in C / C++ for custom flight controller utilizing STM32CubeIDE</li>
-                  <li>Crafted precise PCB routing and layout with KiCAD's PcbNew, creating a 4 layer PCB</li>
-                  <li>Integrated 8 different components to PCB Schematic using I2C and SPI communication protocols</li>
-                  <li>Collaborated across 2 other teams to help finalize specifications and communicate project requirements</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Student Team Section -->
-            <div class="resume-section" data-aos="fade-up">
-              <h3><i class="bi bi-people me-2"></i>Student Team</h3>
-
-              <div class="resume-item">
-                <h4>Software and Firmware Team Lead</h4>
-                <h5>2023 August - Present</h5>
-                <p class="company"><i class="bi bi-building"></i> Subbots - UBC's Autonomous Underwater Vehicle Team</p>
-                <ul>
-                  <li>Led firmware and software development in C++ for underwater robotics, advancing the team to first-ever RoboSub semi-finals in California for two consecutive years</li>
-                  <li>Integrated Docker-based ROS2 system testing into CI/CD workflows using Python in 100+ deployments</li>
-                  <li>Debugged networking issues and maintained configurations on a Nvidia TX2-based submarine via SSH</li>
-                  <li>Managed and mentored a team of 14 software developers and engineering students</li>
-                  <li>Designed a custom 4-cell Li-ion BMS using the BQ76920 AFE, including protection FETs, pack balancing, cell sensing, power path architecture, and a nRF54L15 as an improvised fuel gauge to handle max current of 80A</li>
-                  <li>Enabled AUV to control critical power rails and expose SoC/SoH data to the main controller over BLE</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Education Section -->
-            <div class="resume-section" data-aos="fade-up" data-aos-delay="100">
-              <h3><i class="bi bi-mortarboard me-2"></i>Education</h3>
-
-              <div class="resume-item">
-                <h4>B.ASc. in Electrical Engineering (Fourth Year) | Co-op</h4>
-                <h5>2022 September - 2027 May</h5>
-                <p class="company"><i class="bi bi-building"></i> University of British Columbia</p>
-              </div>
-
-            </div>
-
-            <!-- Certifications Section -->
-            <div class="resume-section" data-aos="fade-up" data-aos-delay="200">
-              <h3><i class="bi bi-award me-2"></i>Certifications</h3>
-
-              <div class="resume-item">
-                <h4>Nordic Connect Bluetooth Low Energy Fundamentals</h4>
-                <h5>2025</h5>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /Resume Section -->
-
-
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio section">
 
@@ -266,31 +138,14 @@
             <div class="col-lg-9">
               <div class="row gy-4 portfolio-container isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-robotics">
-                  <div class="portfolio-wrap">
-                    <img src="assets/img/portfolio/Steelhead.jpg" class="img-fluid" alt="Portfolio Image" loading="lazy">
-                    <div class="portfolio-info">
-                      <div class="content">
-                        <span class="category">Robotics</span>
-                        <h4>Autonomous Underwater Vehicle</h4>
-                        <div class="portfolio-links">
-                          <a href="assets/img/portfolio/Steelhead.jpg" class="glightbox" title="Autonomous Underwater Vehicle"><i class="bi bi-plus-lg"></i></a>
-                          <a href="portfolio-auv.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- End Portfolio Item -->
-
                 <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-hardware">
                   <div class="portfolio-wrap">
-                    <img src="assets/img/portfolio/BMS_Subbots.jpeg" class="img-fluid" alt="Portfolio Image" loading="lazy">
+                    <img src="assets/img/portfolio/V2.jpeg" class="img-fluid" alt="Portfolio Image" loading="lazy">
                     <div class="portfolio-info">
                       <div class="content">
                         <span class="category">Hardware</span>
-                        <h4>Battery Management System and PDB</h4>
+                        <h4>Pill Coater</h4>
                         <div class="portfolio-links">
-                          <a href="assets/img/portfolio/BMS_Subbots.jpeg" class="glightbox" title="Battery Management System"><i class="bi bi-plus-lg"></i></a>
                           <a href="portfolio-bms.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
                         </div>
                       </div>
@@ -306,8 +161,22 @@
                         <span class="category">Hardware</span>
                         <h4>Board Game Controller</h4>
                         <div class="portfolio-links">
-                          <a href="assets/img/portfolio/Sequence.jpeg" class="glightbox" title="Board Game Controller"><i class="bi bi-plus-lg"></i></a>
                           <a href="portfolio-bgc.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- End Portfolio Item -->
+
+                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-robotics">
+                  <div class="portfolio-wrap">
+                    <img src="assets/img/portfolio/Steelhead.jpg" class="img-fluid" alt="Portfolio Image" loading="lazy">
+                    <div class="portfolio-info">
+                      <div class="content">
+                        <span class="category">Robotics</span>
+                        <h4>Autonomous Underwater Vehicle</h4>
+                        <div class="portfolio-links">
+                          <a href="portfolio-auv.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
                         </div>
                       </div>
                     </div>

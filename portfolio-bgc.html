@@ -102,19 +102,19 @@
               <div class="swiper-wrapper align-items-center">
 
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/SystemLevelDiagram.png" alt="System Level Diagram" class="img-fluid" loading="lazy">
+                  <img src="assets/img/portfolio/BoardGameController.jpeg" alt="Soldered PCB" class="img-fluid" loading="lazy">
                 </div>
 
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/TeamPhoto.jpg" alt="Portfolio Image" class="img-fluid" loading="lazy">
+                  <img src="assets/img/portfolio/Testing.jpeg" alt="Testing WS2815's" class="img-fluid" loading="lazy">
                 </div>
 
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/Simulation.png" alt="Portfolio Image" class="img-fluid" loading="lazy">
+                  <img src="assets/img/portfolio/BGC-Strips.jpeg" alt="Soldering all the strips" class="img-fluid" loading="lazy">
                 </div>
 
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/Subbots.png" alt="Portfolio Image" class="img-fluid" loading="lazy">
+                  <img src="assets/img/portfolio/Sequence.jpeg" alt="PCB routing" class="img-fluid" loading="lazy">
                 </div>
 
               </div>
@@ -126,10 +126,10 @@
             <div class="portfolio-info" data-aos="fade-left" data-aos-delay="200">
               <h3>Project Information</h3>
               <ul>
-                <li><strong>Category</strong>: Under construction</li>
-                <li><strong>Organization</strong>: Under construction</li>
-                <li><strong>Project date</strong>: Under construction</li>
-                <li><strong>Project URL</strong>: <a href="https://subbots.ca" target="_blank">Under construction</a></li>
+                <li><strong>Category</strong>: Hardware + Firmware</li>
+                <li><strong>Organization</strong>: Personal</li>
+                <li><strong>Project date</strong>: 2025 Summer</li>
+                <li><strong>Project URL</strong>: <a href="https://subbots.ca" target="_blank">Repository is currently private</a></li>
               </ul>
             </div>
           </div>
@@ -138,8 +138,26 @@
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
               <h2>Project Overview</h2>
               <p>
-                IN PROGRESS
+                Board Game Controller (Modular Embedded System) — In Progress
+Designed and built a scalable embedded controller capable of handling 100+ interactive inputs/outputs for customizable board game systems. The architecture minimizes MCU pin usage by combining serial shift register expansion (SN74HC595) with a multiplexed button scanning network, enabling high-density I/O control on a resource-constrained microcontroller.
 
+A custom PCB was designed and fabricated, integrating power regulation (LM7805), signal routing, and modular expansion interfaces. The system drives a 100-node WS2815 addressable LED array with built-in signal redundancy, improving fault tolerance in large LED chains.
+
+Key engineering challenges include maintaining reliable input detection across a multiplexed network, managing timing for LED updates, and ensuring stable power delivery under dynamic load conditions.
+
+Key Highlights
+
+Custom PCB design (schematic → layout → fabrication → assembly)
+
+I/O scaling using shift registers (100+ outputs with minimal GPIO)
+
+Multiplexed button scanning architecture
+
+WS2815 LED control with fault-tolerant signaling
+
+Fully hand-assembled hardware
+
+Status: In progress — currently writing firmware
               </div>
             </div>
           </div>
