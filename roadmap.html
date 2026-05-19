@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hardware Ownership Roadmap</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --border: #232323;
+    --accent: #e8d5a3;
+    --accent2: #7eb8a4;
+    --accent3: #c47c5a;
+    --text: #d4d0c8;
+    --muted: #5a5a52;
+    --bright: #f0ece0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.6;
+    padding: 2rem 1rem 4rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    color: var(--bright);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
+    color: var(--muted);
+    max-width: 560px;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .meta-item span {
+    color: var(--accent2);
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+  }
+
+  .arc-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .arc-label strong {
+    color: var(--accent);
+  }
+
+  .project {
+    margin-bottom: 2.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .project:hover {
+    border-color: var(--muted);
+  }
+
+  .project-header {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: var(--border);
+    padding: 1rem 0 1rem 1rem;
+    line-height: 1;
+    align-self: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .project.active .project-num { color: var(--accent3); }
+  .project.power .project-num { color: var(--accent2); }
+  .project.control .project-num { color: var(--accent); }
+  .project.digital .project-num { color: #a891c4; }
+  .project.integration .project-num { color: #c47c5a; }
+
+  .project-title-block {
+    padding: 0.75rem 1rem;
+  }
+
+  .project-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .project.active .project-tag { color: var(--accent3); }
+  .project.power .project-tag { color: var(--accent2); }
+  .project.control .project-tag { color: var(--accent); }
+  .project.digital .project-tag { color: #a891c4; }
+  .project.integration .project-tag { color: #c47c5a; }
+
+  .project-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 1.1rem;
+    color: var(--bright);
+    line-height: 1.2;
+  }
+
+  .project-body {
+    padding: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .project-desc {
+    font-size: 0.75rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 560px) {
+    .row { grid-template-columns: 1fr; }
+  }
+
+  .block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+  }
+
+  .block-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .block-content {
+    font-size: 0.72rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .doors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.3rem;
+  }
+
+  .door-tag {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .blog-line {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-style: italic;
+    border-left: 2px solid var(--border);
+    padding-left: 0.75rem;
+  }
+
+  .blog-line strong {
+    color: var(--accent2);
+    font-style: normal;
+  }
+
+  .standout {
+    background: #0f1a17;
+    border: 1px solid #2a4a3e;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+    color: var(--accent2);
+    margin-top: 0.25rem;
+  }
+
+  .timeline-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  .bar {
+    height: 2px;
+    background: var(--border);
+    flex: 1;
+    position: relative;
+  }
+
+  .bar-fill {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+  }
+
+  .project.active .bar-fill { background: var(--accent3); }
+  .project.power .bar-fill { background: var(--accent2); }
+  .project.control .bar-fill { background: var(--accent); }
+  .project.digital .bar-fill { background: #a891c4; }
+  .project.integration .bar-fill { background: #c47c5a; }
+
+  .in-progress-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent3);
+    border: 1px solid var(--accent3);
+    padding: 0.1rem 0.4rem;
+    display: inline-block;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .section-divider {
+    margin: 3rem 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-divider span {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.65rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  footer strong {
+    color: var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Hardware Ownership Roadmap · UBC EE · 2025 – 2028</p>
+  <h1>Why haven't we<br><em>hired him yet?</em></h1>
+  <p class="subtitle">10 projects. Each one leaves a recruiter with no good answer to that question.</p>
+  <div class="meta-row">
+    <div class="meta-item">Commitment<span>~10 hrs / week</span></div>
+    <div class="meta-item">Target<span>Custom PCB + Firmware ownership</span></div>
+    <div class="meta-item">Horizon<span>Graduation May 2028</span></div>
+    <div class="meta-item">Public<span>GitHub + Blog writeups</span></div>
+  </div>
+</header>
+
+<p class="arc-label">The thread: <strong>Full hardware ownership at every layer.</strong> Motion → Wireless → Power → Real-time control → Digital design → Compute → Integration. Every project has a custom PCB by the end.</p>
+
+<!-- PROJECT 1 -->
+<div class="project active">
+  <div class="project-header">
+    <div class="project-num">01</div>
+    <div class="project-title-block">
+      <div class="project-tag">Motion Control · Foundation</div>
+      <div class="project-name">2D Pen Plotter + Custom Controller PCB <span class="in-progress-badge">in progress</span></div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">You have the machine. Now own the hardware. Replace the CNC Shield v3 with a custom 2-layer PCB — ATmega or STM32 + DRV8825 integrated, homing switches, e-stop, real connectors. Then write your own motion controller in C: trapezoidal acceleration profiles, G-code parser, axis coordination. No black-box GRBL.</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What you'll learn</div>
+        <div class="block-content">PCB bring-up discipline. Stepper driver design. Acceleration math. First schematic-to-working-board loop.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Opens doors at</div>
+        <div class="doors">
+          <span class="door-tag">Any hardware role</span>
+          <span class="door-tag">Motion startups</span>
+          <span class="door-tag">Robotics</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-bar">
+      <span>~8 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:55%"></div></div>
+      <span>~80 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> "From dev shield to custom PCB: what I learned on my first hardware bring-up"</p>
+  </div>
+</div>
+
+<!-- PROJECT 2 -->
+<div class="project power">
+  <div class="project-header">
+    <div class="project-num">02</div>
+    <div class="project-title-block">
+      <div class="project-tag">Wireless · RF Layout · Power</div>
+      <div class="project-name">Custom BLE Sensor Node on nRF52840</div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">You know Zephyr and BLE from Salyx — but you used their hardware. Now design the board. Custom nRF52840 PCB (no dev board), integrated IMU + environmental sensor, LiPo charging (BQ25185), proper chip antenna placement with matching network. Achieve sub-10µA sleep. This is what "production-like" means.</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What you'll learn</div>
+        <div class="block-content">RF layout rules. Antenna matching. LiPo charging circuits. Power state machines. Zephyr PM subsystem depth.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Opens doors at</div>
+        <div class="doors">
+          <span class="door-tag">Medical wearables</span>
+          <span class="door-tag">IoT hardware</span>
+          <span class="door-tag">Consumer electronics</span>
+          <span class="door-tag">Salyx (senior)</span>
+        </div>
+      </div>
+    </div>
+    <div class="standout">↑ Differentiator: you already have the firmware knowledge. The PCB ownership is what closes the gap between "intern" and "engineer."</div>
+    <div class="timeline-bar">
+      <span>~11 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:60%"></div></div>
+      <span>~110 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> "Designing a BLE sensor node nobody handed me a schematic for: RF layout, antenna matching, and sub-10µA sleep"</p>
+  </div>
+</div>
+
+<!-- PROJECT 3 -->
+<div class="project control">
+  <div class="project-header">
+    <div class="project-num">03</div>
+    <div class="project-title-block">
+      <div class="project-tag">Motor Control · 4-Layer PCB · THE showstopper</div>
+      <div class="project-name">FOC Motor Controller from Scratch</div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Field-Oriented Control, implemented from scratch in C — no SimpleFOC, no ST motor control library. Custom 4-layer PCB: STM32G4 (math-optimized core) + DRV8353 gate driver + INA240 inline current sensing + magnetic encoder interface (AS5047P). Clarke transform → Park transform → SVPWM → PI current loops. Plot your loop bandwidth on a Bode plot.</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What you'll learn</div>
+        <div class="block-content">4-layer stackup design. High-side gate drive. Inline current sensing layout. Real-time control loop tuning. Power planes and EMC basics.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Opens doors at</div>
+        <div class="doors">
+          <span class="door-tag">Tesla (motor team)</span>
+          <span class="door-tag">Rivian</span>
+          <span class="door-tag">Boston Dynamics</span>
+          <span class="door-tag">Figure AI</span>
+          <span class="door-tag">Sarcomere (senior)</span>
+          <span class="door-tag">Any servo drive co.</span>
+        </div>
+      </div>
+    </div>
+    <div class="standout">↑ This is the project that makes a senior engineer lean forward in an interview. Undergrads don't build this. This is the line.</div>
+    <div class="timeline-bar">
+      <span>~15 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:80%"></div></div>
+      <span>~150 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> "FOC from scratch: Clarke, Park, SVPWM — and why I didn't use a library"</p>
+  </div>
+</div>
+
+<!-- PROJECT 4 -->
+<div class="project power">
+  <div class="project-header">
+    <div class="project-num">04</div>
+    <div class="project-title-block">
+      <div class="project-tag">Power Electronics · Automotive · Safety</div>
+      <div class="project-name">4S LiPo BMS with CAN Bus</div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Custom PCB around BQ76920 or ISL94202: 4-cell monitoring, passive cell balancing, OV/UV/OC/OT protection, NTC thermistor integration. STM32 firmware handles Coulomb counting + OCV-based SoC estimation. CAN bus (ISO 11898) interface — because that's how automotive talks. This is the kind of work that appears on job descriptions at every EV company.</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What you'll learn</div>
+        <div class="block-content">Cell chemistry fundamentals. Protection circuit design. SoC estimation algorithms. CAN bus implementation. Regulatory safety thinking.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Opens doors at</div>
+        <div class="doors">
+          <span class="door-tag">Tesla (BMS team)</span>
+          <span class="door-tag">Northvolt</span>
+          <span class="door-tag">Medical devices</span>
+          <span class="door-tag">Aerospace</span>
+          <span class="door-tag">EV startups</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-bar">
+      <span>~11 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:60%"></div></div>
+      <span>~110 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> "Building a BMS: because batteries want to kill you and that's the whole point"</p>
+  </div>
+</div>
+
+<!-- PROJECT 5 -->
+<div class="project control">
+  <div class="project-header">
+    <div class="project-num">05</div>
+    <div class="project-title-block">
+      <div class="project-tag">System Integration · Precision Mechanics</div>
+      <div class="project-name">Desktop PCB Milling Machine</div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">AMB 800 FME spindle, 2020 extrusion frame, custom motion controller (improved stepper driver board from P1 learnings). Z-probe for surface height mapping, vacuum table for workholding. Target: 8 mil trace / 8 mil space on real FR4. The actual deliverable isn't the machine — it's the PCB you mill with it. Closes the loop on hardware ownership: you now manufacture your own boards.</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What you'll learn</div>
+        <div class="block-content">Spindle RPM control. Surface probing algorithms. Toolpath generation. Mechanical rigidity vs. cost tradeoffs. End-to-end manufacturing.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Why it's here</div>
+        <div class="block-content">Every project after this gets faster and cheaper. You iterate on hardware in hours, not days. The machine pays for itself by project 8.</div>
+      </div>
+    </div>
+    <div class="standout">↑ "I built the machine that makes my boards" is a sentence that ends conversations. Nobody your age does this.</div>
+    <div class="timeline-bar">
+      <span>~14 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:75%"></div></div>
+      <span>~140 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> "Building the machine that builds my machines: 8-mil traces on a $600 desktop mill"</p>
+  </div>
+</div>
+
+<!-- PROJECT 6 -->
+<div class="project digital">
+  <div class="project-header">
+    <div class="project-num">06</div>
+    <div class="project-title-block">
+      <div class="project-tag">Digital Design · RTL · FPGA</div>
+      <div class="project-name">Custom FPGA Board + RTL Implementation</div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Don't buy an Arty or an iCEBreaker — design the board. Custom ECP5 or iCE40 PCB with SRAM, UART interface, and JTAG programming. Then implement something non-trivial in RTL: a CORDIC engine (you'll use this in your FOC controller for sin/cos), or a custom SPI/I2C peripheral, or a pipeline that processes encoder data. The goal is to show you understand digital logic at the gate level.</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What you'll learn</div>
+        <div class="block-content">FPGA bring-up and configuration. SystemVerilog/VHDL synthesis. Timing constraints and static timing analysis. High-speed signal integrity basics.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Opens doors at</div>
+        <div class="doors">
+          <span class="door-tag">AMD / Xilinx</span>
+          <span class="door-tag">NVIDIA (digital HW)</span>
+          <span class="door-tag">Intel</span>
+          <span class="door-tag">Qualcomm</span>
+          <span class="door-tag">FPGA-heavy robotics</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-bar">
+      <span>~11 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:60%"></div></div>
+      <span>~110 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> "Why I designed my own FPGA board instead of buying one — and what I implemented on it"</p>
+  </div>
+</div>
+
+<!-- PROJECT 7 -->
+<div class="project digital">
+  <div class="project-header">
+    <div class="project-num">07</div>
+    <div class="project-title-block">
+      <div class="project-tag">High-Speed Layout · Embedded Linux</div>
+      <div class="project-name">Compute Module Carrier Board + Linux Driver</div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Design a carrier board for the Raspberry Pi CM4 (or equivalent). Include USB 3.0, PCIe, MIPI CSI camera, HDMI, and a custom peripheral (e.g., your BLE sensor node from P2 via UART or SPI). Boot a custom Yocto or Buildroot image. Write a kernel driver for the peripheral. This is high-speed PCB layout territory — DDR4 routing rules, impedance control, eye diagram validation.</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What you'll learn</div>
+        <div class="block-content">High-speed layout (USB 3, PCIe, DDR). Controlled impedance. Yocto/Buildroot. Linux kernel driver structure. Device tree overlays.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Opens doors at</div>
+        <div class="doors">
+          <span class="door-tag">Apple (HW bring-up)</span>
+          <span class="door-tag">NVIDIA Jetson</span>
+          <span class="door-tag">Qualcomm</span>
+          <span class="door-tag">Google hardware</span>
+          <span class="door-tag">Any embedded Linux</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-bar">
+      <span>~13 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:70%"></div></div>
+      <span>~130 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> "High-speed PCB layout: how I learned to stop worrying and respect the stackup"</p>
+  </div>
+</div>
+
+<!-- PROJECT 8 -->
+<div class="project control">
+  <div class="project-header">
+    <div class="project-num">08</div>
+    <div class="project-title-block">
+      <div class="project-tag">Robotics · Actuator Hardware</div>
+      <div class="project-name">Closed-Loop Robotic Joint Module</div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Take your FOC controller (P3), miniaturize it onto a compact form-factor PCB colocated with a BLDC + AS5047P absolute encoder. Add a CAN or EtherCAT interface. Write a ROS2 node that treats this as a standard joint. Characterize it properly: torque constant, backdrivability, current loop bandwidth. This is not "I hooked up a motor" — this is "I designed a joint module with a datasheet."</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What you'll learn</div>
+        <div class="block-content">Miniaturization constraints. Thermal management. EtherCAT or CAN FD protocol. ROS2 hardware interface. Actuator characterization methodology.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Opens doors at</div>
+        <div class="doors">
+          <span class="door-tag">Boston Dynamics</span>
+          <span class="door-tag">Figure AI</span>
+          <span class="door-tag">1X Technologies</span>
+          <span class="door-tag">Sarcomere (senior)</span>
+          <span class="door-tag">Any humanoid startup</span>
+        </div>
+      </div>
+    </div>
+    <div class="standout">↑ P3 does the heavy lifting. P8 reuses that work with better packaging. Two projects, one architecture — this is how real engineering works.</div>
+    <div class="timeline-bar">
+      <span>~12 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:65%"></div></div>
+      <span>~120 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> "Designing a robotic joint module with a real datasheet: torque constant, bandwidth, and why backdrivability matters"</p>
+  </div>
+</div>
+
+<!-- PROJECT 9 -->
+<div class="project power">
+  <div class="project-header">
+    <div class="project-num">09</div>
+    <div class="project-title-block">
+      <div class="project-tag">Mixed-Signal · Analog Design</div>
+      <div class="project-name">Precision Impedance Analyzer / Lock-in Instrument</div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">Build a precision mixed-signal instrument: an impedance spectrometer or lock-in amplifier. Custom PCB with a 24-bit ADC (ADS1256 or AD7124), precision voltage reference, DDS signal source (AD9833), and instrumentation amplifier front-end. Proper analog layout — ground splits, shielding, star grounding. Firmware handles FFT, phase extraction, USB streaming to a Python GUI. Measure something real: a capacitor, a battery's internal impedance, a sensor's response.</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What you'll learn</div>
+        <div class="block-content">Analog layout and noise floors. Instrumentation amp selection. Signal chain design. DSP in firmware. The difference between a µV and a mV matter.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Opens doors at</div>
+        <div class="doors">
+          <span class="door-tag">Medtronic</span>
+          <span class="door-tag">Abbott</span>
+          <span class="door-tag">Keysight</span>
+          <span class="door-tag">National Instruments</span>
+          <span class="door-tag">Scientific instruments</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-bar">
+      <span>~11 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:60%"></div></div>
+      <span>~110 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> "Analog layout mistakes I made so you don't have to: building a precision lock-in amplifier"</p>
+  </div>
+</div>
+
+<!-- PROJECT 10 -->
+<div class="project integration">
+  <div class="project-header">
+    <div class="project-num">10</div>
+    <div class="project-title-block">
+      <div class="project-tag">Capstone · Full System Integration</div>
+      <div class="project-name">Modular Robotic Arm or Autonomous Platform</div>
+    </div>
+  </div>
+  <div class="project-body">
+    <p class="project-desc">This is the interview conversation piece. Take P3 (FOC), P4 (BMS), P7 (compute carrier), P8 (joint module) and integrate them into a real system: a 3-DOF desktop robotic arm or a self-balancing platform with full state estimation. Custom PCBs throughout. ROS2 coordination layer on the CM4. Powered from your BMS. Blog it as a series — 8 posts covering each subsystem and the integration challenges. This is what a junior engineer ships in their first year at a robotics company.</p>
+    <div class="row">
+      <div class="block">
+        <div class="block-label">What it proves</div>
+        <div class="block-content">You can architect a multi-board system. You understand interfaces between hardware domains. You can debug at the system level, not just the component level.</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Opens every door</div>
+        <div class="doors">
+          <span class="door-tag">Tesla</span>
+          <span class="door-tag">Apple</span>
+          <span class="door-tag">Boston Dynamics</span>
+          <span class="door-tag">AMD</span>
+          <span class="door-tag">Any hardware startup</span>
+          <span class="door-tag">Medical devices</span>
+        </div>
+      </div>
+    </div>
+    <div class="standout">↑ "Walk me through your most complex project." This is the answer. Every component is documented. Every design decision has a reason. You know this system at every layer.</div>
+    <div class="timeline-bar">
+      <span>~15 wks</span>
+      <div class="bar"><div class="bar-fill" style="width:80%"></div></div>
+      <span>~150 hrs</span>
+    </div>
+    <p class="blog-line"><strong>Blog angle:</strong> 8-part series: "From plotter to robot arm: how 9 projects built one system"</p>
+  </div>
+</div>
+
+<div class="section-divider"><span>Total picture</span></div>
+
+<div class="block" style="padding: 1.25rem; margin-bottom: 1.5rem;">
+  <div class="block-label" style="margin-bottom: 0.75rem;">What a recruiter reads across all 10 projects</div>
+  <div class="block-content" style="line-height: 2;">
+    · 5+ custom PCBs designed and brought up from scratch (2-layer → 4-layer → high-speed)<br>
+    · FOC motor control implemented without a library<br>
+    · BLE firmware on custom hardware with sub-10µA optimization<br>
+    · BMS with CAN bus and real SoC estimation<br>
+    · FPGA RTL — gate-level understanding, not just HDL syntax<br>
+    · High-speed layout (USB 3, PCIe, DDR) with a Linux driver written<br>
+    · Precision analog / mixed-signal instrument<br>
+    · System-level integration across all domains<br>
+    · 10+ long-form writeups demonstrating engineering judgment, not just build logs
+  </div>
+</div>
+
+<footer>
+  <strong>Honest note on timeline:</strong> At 10hrs/week with school and co-op, you'll realistically complete 8–9 of these by graduation. That's still extraordinary. The arc matters more than perfect completion — a recruiter reading P1 through P8 sees a trajectory. Start P1 this week. The compounding is everything.<br><br>
+  Your school courses accelerate this directly: ELEC 341 (control theory) feeds P3 and P8. ELEC 342 (electromechanical) feeds P3. ELEC 315 (semiconductor physics) feeds P9. Align project timing with course sequencing where you can.
+</footer>
+
+</body>
+</html>
